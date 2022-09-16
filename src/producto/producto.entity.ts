@@ -2,7 +2,7 @@ import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TiendaEntity } from '../tienda/tienda.entity';
 
 @Entity()
-export class ProductEntity {
+export class ProductoEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

@@ -1,0 +1,723 @@
+{
+	"info": {
+		"_postman_id": "bfe9ed11-e974-459c-a573-da003f0a3e54",
+		"name": "Tienda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15486601"
+	},
+	"item": [
+		{
+			"name": "Crear una tienda valida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData).to.be.an(\"object\");",
+							"  pm.expect(jsonData.nombre).to.be.a(\"string\");",
+							"  pm.expect(jsonData.ciudad).to.be.a(\"string\");",
+							"  pm.expect(jsonData.direccion).to.be.a(\"string\");",
+							"  pm.expect(jsonData.productos).to.be.undefined;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear una tienda valida",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tiendas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n    \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Crear una tienda no valida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 400 Bad Request\", function () {",
+							"   pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El codigo de ciudad debe tener tres caracteres\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"CUCUTA\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Crear una tienda no valida",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"CUCUTA\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tiendas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 400,\n    \"message\": \"El codigo de ciudad debe tener tres caracteres\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener todas las tiendas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Numero de culturas gastronomicas > ' + 0, function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0);",
+							"   pm.expect(data).to.be.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener todas las tiendas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tiendas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\",\n        \"nombre\": \"Tienda El Manguito\",\n        \"ciudad\": \"BUC\",\n        \"direccion\": \"Carrera 11, 12-22\",\n        \"productos\": []\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Obtener una tienda por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData).to.be.an(\"object\");",
+							"  pm.expect(jsonData.nombre).to.be.a(\"string\");",
+							"  pm.expect(jsonData.ciudad).to.be.a(\"string\");",
+							"  pm.expect(jsonData.direccion).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "tiendaId",
+							"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener una tienda por ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "tiendaId",
+									"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\",\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n    \"productos\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener una tienda por un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"La tienda con el id proporcionado no ha sido encontrada.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "tiendaId",
+							"value": "00000000-0000-0000-0000-000000000000"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener una tienda por un ID que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "tiendaId",
+									"value": "00000000-0000-0000-0000-000000000000"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La tienda con el id proporcionado no ha sido encontrada.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar una tienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData).to.be.an(\"object\");",
+							"  pm.expect(jsonData.nombre).to.be.a(\"string\");",
+							"  pm.expect(jsonData.ciudad).to.be.a(\"string\");",
+							"  pm.expect(jsonData.direccion).to.be.a(\"string\");",
+							"  pm.expect(jsonData.productos).to.be.undefined;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 22-22\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "tiendaId",
+							"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar una tienda",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 22-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "tiendaId",
+									"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\",\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 22-22\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar una tienda con un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"La tienda con el id proporcionado no ha sido encontrada.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 22-22\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "tiendaId",
+							"value": "00000000-0000-0000-0000-000000000000"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar una tienda con un ID que no existe",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 22-22\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "tiendaId",
+									"value": "00000000-0000-0000-0000-000000000000"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La tienda con el id proporcionado no ha sido encontrada.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Eliminar una tienda por su ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "tiendaId",
+							"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar una tienda por su ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "tiendaId",
+									"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Eliminar una tienda con un ID que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"La tienda con el id proporcionado no ha sido encontrada.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "tiendaId",
+							"value": "00000000-0000-0000-0000-000000000000"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar una tienda con un ID que no existe",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "tiendaId",
+									"value": "00000000-0000-0000-0000-000000000000"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La tienda con el id proporcionado no ha sido encontrada.\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

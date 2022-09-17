@@ -1,0 +1,1023 @@
+{
+	"info": {
+		"_postman_id": "e0d0e1df-8e04-4e4a-9478-1b1791b96a6d",
+		"name": "Producto-Tienda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15486601"
+	},
+	"item": [
+		{
+			"name": "Poblar un producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Sardinas Madrigal\",\n    \"precio\": 3500,\n    \"tipo\": \"No perecedero\",\n    \"id\": \"3e7b417b-bac1-401a-91ec-18774851d497\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Poblar una tienda",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Poblar una tienda 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Tienda La Soledad\",\n    \"ciudad\": \"BOG\",\n    \"direccion\": \"Carrera 39, 40-22\",\n    \"id\": \"496fc7cd-f962-4bd8-a105-cdb906b9ce4f\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"tiendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar una nueva tienda a las oferentes de un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData).to.be.an(\"object\");",
+							"  pm.expect(jsonData.nombre).to.be.a(\"string\");",
+							"  pm.expect(jsonData.precio).to.be.a(\"number\");",
+							"  pm.expect(jsonData.tipo).to.be.a(\"string\");",
+							"  pm.expect(jsonData.tiendas).to.be.an(\"array\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						},
+						{
+							"key": "tiendaId",
+							"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Agregar una nueva tienda a las oferentes de un producto",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								},
+								{
+									"key": "tiendaId",
+									"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+								}
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\": \"3e7b417b-bac1-401a-91ec-18774851d497\",\n    \"nombre\": \"Sardinas Madrigal\",\n    \"precio\": 3500,\n    \"tipo\": \"No perecedero\",\n    \"tiendas\": [\n        {\n            \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\",\n            \"nombre\": \"Tienda El Manguito\",\n            \"ciudad\": \"BUC\",\n            \"direccion\": \"Carrera 11, 12-22\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Asociar una tienda que no existe a las oferentes de un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"La tienda con el id proporcionado no ha sido encontrada.\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						},
+						{
+							"key": "tiendaId",
+							"value": "00000000-0000-0000-0000-000000000000"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Asociar una tienda que no existe a las oferentes de un producto",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								},
+								{
+									"key": "tiendaId",
+									"value": "00000000-0000-0000-0000-000000000000"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La tienda con el id proporcionado no ha sido encontrada.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener todas las tiendas que ofrecen un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Numero de recetas > ' + 0, function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0);",
+							"   pm.expect(data).to.be.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener todas las tiendas que ofrecen un producto",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\",\n        \"nombre\": \"Tienda El Manguito\",\n        \"ciudad\": \"BUC\",\n        \"direccion\": \"Carrera 11, 12-22\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Obtener una tienda que ofrece un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData).to.be.an(\"object\");",
+							"  pm.expect(jsonData.nombre).to.be.a(\"string\");",
+							"  pm.expect(jsonData.ciudad).to.be.a(\"string\");",
+							"  pm.expect(jsonData.direccion).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						},
+						{
+							"key": "tiendaId",
+							"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener una tienda que ofrece un producto",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								},
+								{
+									"key": "tiendaId",
+									"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\",\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Obtener una tienda que ofrece un producto que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"El producto con el id proporcionado no ha sido encontrado.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "00000000-0000-0000-0000-000000000000"
+						},
+						{
+							"key": "tiendaId",
+							"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Obtener una tienda que ofrece un producto que no existe",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "00000000-0000-0000-0000-000000000000"
+								},
+								{
+									"key": "tiendaId",
+									"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"El producto con el id proporcionado no ha sido encontrado.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar las tiendas que ofrecen un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData).to.be.an(\"object\");",
+							"  pm.expect(jsonData.nombre).to.be.a(\"string\");",
+							"  pm.expect(jsonData.precio).to.be.a(\"number\");",
+							"  pm.expect(jsonData.tipo).to.be.a(\"string\");",
+							"  pm.expect(jsonData.tiendas).to.be.an(\"array\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n    },\n    {\n    \"nombre\": \"Tienda La Soledad\",\n    \"ciudad\": \"BOG\",\n    \"direccion\": \"Carrera 39, 40-22\",\n    \"id\": \"496fc7cd-f962-4bd8-a105-cdb906b9ce4f\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar tiendas de un producto",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n    },\n    {\n    \"nombre\": \"Tienda La Soledad\",\n    \"ciudad\": \"BOG\",\n    \"direccion\": \"Carrera 39, 40-22\",\n    \"id\": \"496fc7cd-f962-4bd8-a105-cdb906b9ce4f\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"id\": \"3e7b417b-bac1-401a-91ec-18774851d497\",\n    \"nombre\": \"Sardinas Madrigal\",\n    \"precio\": 3500,\n    \"tipo\": \"No perecedero\",\n    \"tiendas\": [\n        {\n            \"nombre\": \"Tienda El Manguito\",\n            \"ciudad\": \"BUC\",\n            \"direccion\": \"Carrera 11, 12-22\",\n            \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n        },\n        {\n            \"nombre\": \"Tienda La Soledad\",\n            \"ciudad\": \"BOG\",\n            \"direccion\": \"Carrera 39, 40-22\",\n            \"id\": \"496fc7cd-f962-4bd8-a105-cdb906b9ce4f\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Actualizar las tiendas que ofrecen un producto, con una tienda inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"La tienda con el id proporcionado no ha sido encontrada.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n    },\n    {\n    \"nombre\": \"Tienda El Barranco\",\n    \"ciudad\": \"CAL\",\n    \"direccion\": \"Carrera 1, 40-22\",\n    \"id\": \"496fc7cd-f962-4bd8-abcd-cdb906b9ce4f\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Actualizar las tiendas que ofrecen un producto, con una tienda inexistente",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n    \"nombre\": \"Tienda El Manguito\",\n    \"ciudad\": \"BUC\",\n    \"direccion\": \"Carrera 11, 12-22\",\n        \"id\": \"74b3993b-adc0-48a8-91a8-e68baab833f6\"\n    },\n    {\n    \"nombre\": \"Tienda El Barranco\",\n    \"ciudad\": \"CAL\",\n    \"direccion\": \"Carrera 1, 40-22\",\n    \"id\": \"496fc7cd-f962-4bd8-abcd-cdb906b9ce4f\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								}
+							]
+						}
+					},
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 404,\n    \"message\": \"La tienda con el id proporcionado no ha sido encontrada.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Eliminar una tienda de un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						},
+						{
+							"key": "tiendaId",
+							"value": "496fc7cd-f962-4bd8-a105-cdb906b9ce4f"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar una tienda de un producto",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								},
+								{
+									"key": "tiendaId",
+									"value": "74b3993b-adc0-48a8-91a8-e68baab833f6"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Eliminar una tienda que no ofrece un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado es 412\", function () {",
+							"   pm.response.to.have.status(412);",
+							"});",
+							"",
+							"pm.test(\"Obtener mensaje de error\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.eql(\"La tienda con el id proporcionado no ofrece el producto\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"productos",
+						":productoId",
+						"tiendas",
+						":tiendaId"
+					],
+					"variable": [
+						{
+							"key": "productoId",
+							"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+						},
+						{
+							"key": "tiendaId",
+							"value": "496fc7cd-f962-4bd8-a105-cdb906b9ce4f"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Eliminar una tienda que no ofrece un producto",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/productos/:productoId/tiendas/:tiendaId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"productos",
+								":productoId",
+								"tiendas",
+								":tiendaId"
+							],
+							"variable": [
+								{
+									"key": "productoId",
+									"value": "3e7b417b-bac1-401a-91ec-18774851d497"
+								},
+								{
+									"key": "tiendaId",
+									"value": "496fc7cd-f962-4bd8-a105-cdb906b9ce4f"
+								}
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"statusCode\": 412,\n    \"message\": \"La tienda con el id proporcionado no esta asociada al producto\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}

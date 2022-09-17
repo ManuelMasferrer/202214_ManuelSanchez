@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { ProductoEntity } from '../producto/producto.entity';
 import { TiendaEntity } from '../tienda/tienda.entity';
 import { BusinessError, BusinessLogicException } from '../shared/errors/business-errors';
-import e from 'express';
 
 @Injectable()
 export class ProductoTiendaService {
@@ -49,7 +48,7 @@ export class ProductoTiendaService {
         }
         const tiendaProducto = producto.tiendas.find(e => e.id == tienda.id)
         if(!tiendaProducto) {
-            throw new BusinessLogicException("La tienda con el id proporcionado no esta asociada al producto", BusinessError.PRECONDITION_FAILED);
+            throw new BusinessLogicException("La tienda con el id proporcionado no ofrece el producto", BusinessError.PRECONDITION_FAILED);
         }
         return tiendaProducto;
     }
@@ -81,7 +80,7 @@ export class ProductoTiendaService {
         }
         const tiendaProducto: TiendaEntity = producto.tiendas.find(e => e.id === tienda.id)
         if(!tiendaProducto) {
-            throw new BusinessLogicException("La tienda con el id proporcionado no esta asociada al producto", BusinessError.PRECONDITION_FAILED);
+            throw new BusinessLogicException("La tienda con el id proporcionado no ofrece el producto", BusinessError.PRECONDITION_FAILED);
         }
         producto.tiendas = producto.tiendas.filter(e => e.id !== tiendaId);
         await this.productoRepository.save(producto);

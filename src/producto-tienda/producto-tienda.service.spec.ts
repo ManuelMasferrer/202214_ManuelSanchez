@@ -127,7 +127,7 @@ describe('ProductoTiendaService', () => {
       direccion: faker.address.streetAddress(),
     });
 
-    await expect(()=> service.findStoreFromProduct(producto.id, newTienda.id)).rejects.toHaveProperty("message", "La tienda con el id proporcionado no esta asociada al producto");
+    await expect(()=> service.findStoreFromProduct(producto.id, newTienda.id)).rejects.toHaveProperty("message", "La tienda con el id proporcionado no ofrece el producto");
   });
 
   it('updateStoresFromProduct debe actualizar las tiendas asociadas a un producto', async () => {
@@ -185,7 +185,7 @@ describe('ProductoTiendaService', () => {
       ciudad: faker.random.alpha({count: 3, casing: 'upper'}),
       direccion: faker.address.streetAddress(),
     });
-    await expect(()=> service.deleteStoreFromProduct(producto.id, newTienda.id)).rejects.toHaveProperty("message", "La tienda con el id proporcionado no esta asociada al producto"); 
+    await expect(()=> service.deleteStoreFromProduct(producto.id, newTienda.id)).rejects.toHaveProperty("message",  "La tienda con el id proporcionado no ofrece el producto"); 
   });
 
 });

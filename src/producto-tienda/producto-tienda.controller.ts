@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { TiendaEntity } from 'src/tienda/tienda.entity';
 import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptors';

@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { TiendaService } from './tienda.service';
 import { TiendaEntity } from './tienda.entity';

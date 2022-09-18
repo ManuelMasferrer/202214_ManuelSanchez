@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { IsNotEmpty, IsString, Length  } from "class-validator";
 
 export class TiendaDto {

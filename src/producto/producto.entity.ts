@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TiendaEntity } from '../tienda/tienda.entity';
 

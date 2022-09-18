@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ProductoEntity } from "../../producto/producto.entity";
 import { TiendaEntity } from "../../tienda/tienda.entity";
